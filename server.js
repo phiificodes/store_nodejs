@@ -1,9 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const storeControllers = require("./controllers/storeController");
+const userControllers = require("./controllers/userController");
 
 const server = express();
+
 const store_DB = "mongodb://localhost/store_db";
+
 server.use(express.json());
 
 server.listen(4000, function () {
@@ -14,12 +16,11 @@ server.listen(4000, function () {
       console.log("DB is connected...");
     })
     .catch((error) => {
-      e;
+      error;
       console.log("message " + error.message);
     });
-
-  server.get("/store", storeControllers.getStoreController);
-  server.post("/store", storeControllers.insertStoreController);
-  server.delete("/store/:id", storeControllers.deleteStoreById);
-  server.put("/store/:id", storeControllers.updateStoreController);
 });
+server.get("/user", userControllers.getUserController);
+server.post("/user", userControllers.insertUserController);
+server.delete("/user/:id", userControllers.deleteUserByIdController);
+server.put("/user/:id", userControllers.updateUserController);

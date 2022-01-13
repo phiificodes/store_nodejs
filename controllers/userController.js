@@ -1,7 +1,7 @@
-const store = require("../models/storeModel");
+const user = require("../models/userModel");
 
-function getStoreController(req, res) {
-  store
+function getUserController(req, res) {
+  user
     .find()
     .then(function (data) {
       res.status(200).json({ success: true, document: data.length, data });
@@ -11,9 +11,9 @@ function getStoreController(req, res) {
     });
 }
 
-async function insertStoreController(req, res) {
+async function insertUserController(req, res) {
   try {
-    var _data = await store.create(req.body);
+    var _data = await user.create(req.body);
     console.log("Data inserted succefully");
     res.status(200).json({ success: true });
   } catch (error) {
@@ -21,10 +21,10 @@ async function insertStoreController(req, res) {
   }
 }
 
-function updateStoreController(req, res) {
+function updateUserController(req, res) {
   const _id = req.params.id;
   const _isRecorded = req.body.isRecorded;
-  store
+  user
     .findByIdAndUpdate(_id, { isRecorded: _isRecorded })
     .then((data) => {
       res.status(200).json({ sucess: true, data });
@@ -34,18 +34,18 @@ function updateStoreController(req, res) {
     });
 }
 
-const deleteStoreById = async function (req, res) {
+const deleteUserByIdController = async function (req, res) {
   try {
     const _id = req.params.id;
-    const data = await store.findByIdAndDelete(_id);
+    const data = await user.findByIdAndDelete(_id);
     res.status(200).json({ success: true, message: data.item + " deleted" });
   } catch (error) {
     res.status(404).json({ success: false, message: error.message });
   }
 };
 module.exports = {
-  getStoreController,
-  insertStoreController,
-  updateStoreController,
-  deleteStoreById,
+  getUserController,
+  insertUserController,
+  updateUserController,
+  deleteUserByIdController,
 };
